@@ -1,8 +1,6 @@
-package com.atguigu.gmall.user.bean;
+package com.atguigu.gmall.bean;
 
-
-import org.springframework.data.annotation.Id;
-
+import javax.persistence.Id;
 import java.io.Serializable;
 
 public class UmsMemberReceiveAddress implements Serializable {
