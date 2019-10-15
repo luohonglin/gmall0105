@@ -1,7 +1,6 @@
 package com.atguigu.gmall.manage.service.img;
 
-
-
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.atguigu.gmall.bean.PmsBaseCatalog1;
 import com.atguigu.gmall.bean.PmsBaseCatalog2;

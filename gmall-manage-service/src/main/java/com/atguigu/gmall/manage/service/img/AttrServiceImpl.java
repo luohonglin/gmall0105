@@ -1,17 +1,16 @@
 package com.atguigu.gmall.manage.service.img;
 
-import com.alibaba.dubbo.common.utils.StringUtils;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.atguigu.gmall.bean.PmsBaseAttrInfo;
 import com.atguigu.gmall.bean.PmsBaseAttrValue;
 import com.atguigu.gmall.bean.PmsBaseSaleAttr;
-import com.atguigu.gmall.bean.PmsProductSaleAttr;
 import com.atguigu.gmall.manage.mapper.PmsBaseAttrInfoMapper;
 import com.atguigu.gmall.manage.mapper.PmsBaseAttrValueMapper;
 import com.atguigu.gmall.manage.mapper.PmsBaseSaleAttrMapper;
-import com.atguigu.gmall.manage.mapper.PmsProductSaleAttrMapper;
 import com.atguigu.gmall.service.AttrService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
@@ -22,32 +21,34 @@ public class AttrServiceImpl implements AttrService {
 
     @Autowired
     PmsBaseAttrInfoMapper pmsBaseAttrInfoMapper;
-
     @Autowired
     PmsBaseAttrValueMapper pmsBaseAttrValueMapper;
 
-    @Autowired
-    PmsProductSaleAttrMapper pmsProductSaleAttrMapper;
     @Autowired
     PmsBaseSaleAttrMapper pmsBaseSaleAttrMapper;
 
 
     @Override
     public List<PmsBaseAttrInfo> attrInfoList(String catalog3Id) {
-        PmsBaseAttrInfo pmsBaseAttrInfo=new PmsBaseAttrInfo();
+
+        PmsBaseAttrInfo pmsBaseAttrInfo = new PmsBaseAttrInfo();
         pmsBaseAttrInfo.setCatalog3Id(catalog3Id);
-        List<PmsBaseAttrInfo> pmsBaseAttrInfos=pmsBaseAttrInfoMapper.select(pmsBaseAttrInfo);
-        for (PmsBaseAttrInfo baseAttrInfo : pmsBaseAttrInfos){
-            List<PmsBaseAttrValue> pmsBaseAttrValues=new ArrayList<>();
+        List<PmsBaseAttrInfo> pmsBaseAttrInfos = pmsBaseAttrInfoMapper.select(pmsBaseAttrInfo);
+        for (PmsBaseAttrInfo baseAttrInfo : pmsBaseAttrInfos) {
+
+            List<PmsBaseAttrValue> pmsBaseAttrValues = new ArrayList<>();
             PmsBaseAttrValue pmsBaseAttrValue = new PmsBaseAttrValue();
-            pmsBaseAttrValues=pmsBaseAttrValueMapper.select(pmsBaseAttrValue);
+            pmsBaseAttrValue.setAttrId(baseAttrInfo.getId());
+            pmsBaseAttrValues = pmsBaseAttrValueMapper.select(pmsBaseAttrValue);
             baseAttrInfo.setAttrValueList(pmsBaseAttrValues);
         }
+        
         return pmsBaseAttrInfos;
     }
 
     @Override
     public String saveAttrInfo(PmsBaseAttrInfo pmsBaseAttrInfo) {
+
         String id = pmsBaseAttrInfo.getId();
         if(StringUtils.isBlank(id)){
             // id为空，保存
@@ -88,11 +89,13 @@ public class AttrServiceImpl implements AttrService {
         return "success";
     }
 
+
     @Override
-    public List<PmsBaseAttrValue> attrValueList(String attrId) {
-        PmsBaseAttrValue pmsBaseAttrValue=new PmsBaseAttrValue();
+    public List<PmsBaseAttrValue> getAttrValueList(String attrId) {
+
+        PmsBaseAttrValue pmsBaseAttrValue = new PmsBaseAttrValue();
         pmsBaseAttrValue.setAttrId(attrId);
-        List<PmsBaseAttrValue> pmsBaseAttrValues=pmsBaseAttrValueMapper.select(pmsBaseAttrValue);
+        List<PmsBaseAttrValue> pmsBaseAttrValues = pmsBaseAttrValueMapper.select(pmsBaseAttrValue);
         return pmsBaseAttrValues;
     }
 
@@ -100,5 +103,6 @@ public class AttrServiceImpl implements AttrService {
     public List<PmsBaseSaleAttr> baseSaleAttrList() {
         return pmsBaseSaleAttrMapper.selectAll();
     }
+
 
 }

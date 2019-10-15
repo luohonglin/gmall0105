@@ -30,6 +30,19 @@ public class PmsProductInfo implements Serializable {
 
     @Transient
     private List<PmsProductSaleAttr> spuSaleAttrList;
+
+    @Override
+    public String toString() {
+        return "PmsProductInfo{" +
+                "id='" + id + '\'' +
+                ", productName='" + productName + '\'' +
+                ", description='" + description + '\'' +
+                ", catalog3Id='" + catalog3Id + '\'' +
+                ", spuSaleAttrList=" + spuSaleAttrList +
+                ", spuImageList=" + spuImageList +
+                '}';
+    }
+
     @Transient
     private List<PmsProductImage> spuImageList;
 

@@ -15,39 +15,42 @@ import java.util.List;
 
 @Controller
 @CrossOrigin
-public class AttrController {
+public class AttrController  {
 
     @Reference
     AttrService attrService;
 
-
     @RequestMapping("baseSaleAttrList")
     @ResponseBody
     public List<PmsBaseSaleAttr> baseSaleAttrList(){
-        List<PmsBaseSaleAttr> pmsBaseSaleAttrs=attrService.baseSaleAttrList();
-        return  pmsBaseSaleAttrs;
+
+        List<PmsBaseSaleAttr> pmsBaseSaleAttrs = attrService.baseSaleAttrList();
+        return pmsBaseSaleAttrs;
     }
 
-    @RequestMapping("attrInfoList")
-    @ResponseBody
-    public List<PmsBaseAttrInfo> attrInfosList(String catalog3Id){
-        List<PmsBaseAttrInfo> pmsBaseAttrInfos=attrService.attrInfoList(catalog3Id);
-        return  pmsBaseAttrInfos;
-    }
 
     @RequestMapping("saveAttrInfo")
     @ResponseBody
     public String saveAttrInfo(@RequestBody PmsBaseAttrInfo pmsBaseAttrInfo){
 
-        String success=attrService.saveAttrInfo(pmsBaseAttrInfo);
+        String success = attrService.saveAttrInfo(pmsBaseAttrInfo);
 
-        return success;
+        return "success";
+    }
+
+    @RequestMapping("attrInfoList")
+    @ResponseBody
+    public List<PmsBaseAttrInfo> attrInfoList(String catalog3Id){
+
+        List<PmsBaseAttrInfo> pmsBaseAttrInfos = attrService.attrInfoList(catalog3Id);
+        return pmsBaseAttrInfos;
     }
 
     @RequestMapping("getAttrValueList")
     @ResponseBody
     public List<PmsBaseAttrValue> getAttrValueList(String attrId){
-        List<PmsBaseAttrValue> pmsBaseAttrValues=attrService.attrValueList(attrId);
-        return  pmsBaseAttrValues;
+
+        List<PmsBaseAttrValue> pmsBaseAttrValues = attrService.getAttrValueList(attrId);
+        return pmsBaseAttrValues;
     }
 }
