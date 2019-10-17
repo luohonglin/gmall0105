@@ -4,15 +4,15 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
-		<link rel="stylesheet" type="text/css" href="/scss/shop.css" />
-		<link rel="stylesheet" type="text/css" href="/scss/main.css"/>
-		<link rel="stylesheet" href="/scss/header.css" />
-		<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/scss/shop.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/scss/main.css}"/>
+		<link rel="stylesheet" th:href="@{/scss/header.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.css}"/>
 	</head>
 	<body>
 		<div id="max">
 		<header>
-
+            <input type="text" th:value="${skuSaleAttrHashJsonStr}" id="valuesSku"/>
 					<div class="min">
 						<ul class="header_ul_left">
 							<li class="glyphicon glyphicon-home"> <a href="shouye.html" class="aa">首页</a></li>
@@ -226,7 +226,7 @@
 							<div class="box-attr-2 clear"  th:each="spuSaleAttr:${spuSaleAttrListCheckBySku}">
 								<dl>
 									<dt th:text="${spuSaleAttr.saleAttrName}">选择颜色</dt>
-									<dd  th:class="redborder" th:each="saleAttrValue:${spuSaleAttr.spuSaleAttrValueList}">
+									<dd  th:class="(${saleAttrValue.isChecked}=='1' ? 'redborder' : '')" th:each="saleAttrValue:${spuSaleAttr.spuSaleAttrValueList}">
 										<div th:value="${saleAttrValue.id}" th:text="${saleAttrValue.saleAttrValueName}">
 											  摩卡金
 										</div>
@@ -281,7 +281,7 @@
 									</div>
 								</form>
 							</div>
-							<div id="cartBtn"  style="cursor:pointer;"  canClick="1"  onclick="addToCart(this)" class="box-btns-two">
+							<div id="cartBtn"  class="box-btns-two" style="cursor:pointer;"  canClick="1"  onclick="addToCart(this)">
 
 								放入购物车
 
@@ -1008,8 +1008,8 @@
 		</div>
 	</body>
 
-	<script src="/js/jquery1.9.js" type="text/javascript" charset="utf-8"></script>
-	<script src="/js/js.js" type="text/javascript" charset="utf-8"></script>
+	<script th:src="@{/js/jquery1.9.js}" type="text/javascript" charset="utf-8"></script>
+	<script th:src="@{/js/js.js}" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
         function addToCart(obj){
             var canClick = $(obj).attr("canClick");
