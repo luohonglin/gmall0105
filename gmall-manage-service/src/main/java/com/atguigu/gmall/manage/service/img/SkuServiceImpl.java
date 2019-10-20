@@ -18,6 +18,7 @@ import redis.clients.jedis.Jedis;
 
 
 import javax.swing.*;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -123,10 +124,12 @@ public class SkuServiceImpl implements SkuService {
                     e.printStackTrace();
                 }
                 System.out.println("ip为"+ip+"的同学:"+Thread.currentThread().getName()+"使用完毕,将锁归还"+"sku:"+skuId+":lock");
-                String lockToken=jedis.get("sku:"+skuId+":lock");
-                if (StringUtils.isNoneBlank(lockToken)&&lockToken.equals(token)){
-                    jedis.del("sku:"+skuId+":lock");
-                }
+                String script ="if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
+                jedis.eval(script, Collections.singletonList("sku:"+skuId+":lock"),Collections.singletonList(token));
+//                String lockToken=jedis.get("sku:"+skuId+":lock");
+//                if (StringUtils.isNoneBlank(lockToken)&&lockToken.equals(token)){
+//                    jedis.del("sku:"+skuId+":lock");
+//                }
             }else{
                 System.out.println("ip为"+ip+"的同学:"+Thread.currentThread().getName()+"没有拿到锁,开始自选");
                 // 设置失败，自旋（该线程在睡眠几秒后，重新尝试访问本方法）
