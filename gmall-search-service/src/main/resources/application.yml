@@ -20,9 +20,10 @@ spring:
     #       dubbo\u7684\u670D\u52A1\u7684\u626B\u63CF\u8DEF\u5F84
     base-package: com.atguigu.gmall
   elasticsearch:
-    rest:
+    jest:
       uris: http://192.168.125.131:9200
-mybatis:
+      connection-timeout: 9000
+      read-timeout: 9000
   mapper-locations: classpath:mapper/*Mapper.xml
   configuration:
     map-underscore-to-camel-case: true

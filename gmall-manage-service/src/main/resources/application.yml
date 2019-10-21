@@ -30,3 +30,4 @@ mybatis:
 logging:
   level:
     root: info
+
