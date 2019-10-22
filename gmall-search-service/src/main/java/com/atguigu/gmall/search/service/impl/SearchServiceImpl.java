@@ -1,14 +1,13 @@
 package com.atguigu.gmall.search.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.alibaba.nacos.client.utils.StringUtils;
 import com.atguigu.gmall.bean.PmsSearchParam;
 import com.atguigu.gmall.bean.PmsSearchSkuInfo;
-import com.atguigu.gmall.bean.PmsSkuAttrValue;
 import com.atguigu.gmall.service.SearchService;
 import io.searchbox.client.JestClient;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
-import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.TermQueryBuilder;
@@ -44,9 +43,12 @@ public class SearchServiceImpl implements SearchService {
         List<SearchResult.Hit<PmsSearchSkuInfo, Void>> hits = execute.getHits(PmsSearchSkuInfo.class);
         for (SearchResult.Hit<PmsSearchSkuInfo, Void> hit : hits) {
             PmsSearchSkuInfo source = hit.source;
+
             Map<String, List<String>> highlight = hit.highlight;
-            String skuName = highlight.get("skuName").get(0);
-            source.setSkuName(skuName);
+            if (highlight != null) {
+                String skuName = highlight.get("skuName").get(0);
+                source.setSkuName(skuName);
+            }
             pmsSearchSkuInfos.add(source);
         }
 
@@ -56,7 +58,6 @@ public class SearchServiceImpl implements SearchService {
 
     private String getSearchDsl(PmsSearchParam pmsSearchParam) {
 
-        List<PmsSkuAttrValue> skuAttrValueList = pmsSearchParam.getSkuAttrValueList();
         String keyword = pmsSearchParam.getKeyword();
         String catalog3Id = pmsSearchParam.getCatalog3Id();
 
@@ -66,20 +67,14 @@ public class SearchServiceImpl implements SearchService {
         BoolQueryBuilder boolQueryBuilder = new BoolQueryBuilder();
 
         // filter
-        if(StringUtils.isNotBlank(catalog3Id)){
-            TermQueryBuilder termQueryBuilder = new TermQueryBuilder("catalog3Id",catalog3Id);
+        if (StringUtils.isNotBlank(catalog3Id)) {
+            TermQueryBuilder termQueryBuilder = new TermQueryBuilder("catalog3Id", catalog3Id);
             boolQueryBuilder.filter(termQueryBuilder);
-        }
-        if(skuAttrValueList!=null){
-            for (PmsSkuAttrValue pmsSkuAttrValue : skuAttrValueList) {
-                TermQueryBuilder termQueryBuilder = new TermQueryBuilder("skuAttrValueList.valueId",pmsSkuAttrValue.getValueId());
-                boolQueryBuilder.filter(termQueryBuilder);
-            }
         }
 
         // must
-        if(StringUtils.isNotBlank(keyword)){
-            MatchQueryBuilder matchQueryBuilder = new MatchQueryBuilder("skuName",keyword);
+        if (StringUtils.isNotBlank(keyword)) {
+            MatchQueryBuilder matchQueryBuilder = new MatchQueryBuilder("skuName", keyword);
             boolQueryBuilder.must(matchQueryBuilder);
         }
 

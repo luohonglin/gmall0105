@@ -7,7 +7,6 @@ import com.atguigu.gmall.service.SearchService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import sun.security.pkcs11.Secmod;
 
 import java.util.List;
 
@@ -21,7 +20,7 @@ public class SearchController {
     public String list(PmsSearchParam pmsSearchParam,ModelMap map){//三级分类id,关键字
         //调用搜索服务,放回搜索结果
         List<PmsSearchSkuInfo> pmsSearchSkuInfos=searchService.list(pmsSearchParam);
-        map.put("skuLsInfoList",pmsSearchParam);
+        map.put("skuLsInfoList",pmsSearchSkuInfos);
         return "list";
     }
 

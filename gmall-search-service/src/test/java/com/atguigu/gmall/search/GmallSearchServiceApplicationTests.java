@@ -12,6 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,9 @@ public class GmallSearchServiceApplicationTests {
 
     @Autowired
     JestClient jestClient;
+
+//    @Autowired
+//    Client client;
 
 
     public  void context() throws IOException {
@@ -59,6 +63,5 @@ public class GmallSearchServiceApplicationTests {
         }
 
     }
+    }
 
-
-}
