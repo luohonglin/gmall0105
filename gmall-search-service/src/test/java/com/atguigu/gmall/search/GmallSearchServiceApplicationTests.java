@@ -27,9 +27,6 @@ public class GmallSearchServiceApplicationTests {
     @Autowired
     JestClient jestClient;
 
-//    @Autowired
-//    Client client;
-
 
     public  void context() throws IOException {
         put();

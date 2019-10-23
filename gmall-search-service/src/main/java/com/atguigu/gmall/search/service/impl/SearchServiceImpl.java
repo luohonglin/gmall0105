@@ -11,6 +11,8 @@ import io.searchbox.core.SearchResult;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.TermQueryBuilder;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.sort.SortOrder;
@@ -57,7 +59,7 @@ public class SearchServiceImpl implements SearchService {
     }
 
     private String getSearchDsl(PmsSearchParam pmsSearchParam) {
-
+        String[] skuValueList=pmsSearchParam.getValueId();
         String keyword = pmsSearchParam.getKeyword();
         String catalog3Id = pmsSearchParam.getCatalog3Id();
 
@@ -77,6 +79,13 @@ public class SearchServiceImpl implements SearchService {
             MatchQueryBuilder matchQueryBuilder = new MatchQueryBuilder("skuName", keyword);
             boolQueryBuilder.must(matchQueryBuilder);
         }
+        
+        if(skuValueList!=null){
+            for (String pmsSkuAttrValue : skuValueList) {
+                TermQueryBuilder termQueryBuilder=new TermQueryBuilder("skuAttrValueList.valueId",pmsSkuAttrValue);
+                boolQueryBuilder.filter(termQueryBuilder);
+            }
+        }
 
         // query
         searchSourceBuilder.query(boolQueryBuilder);
@@ -93,6 +102,10 @@ public class SearchServiceImpl implements SearchService {
         searchSourceBuilder.from(0);
         // size
         searchSourceBuilder.size(20);
+
+        // aggs
+        TermsAggregationBuilder groupby_attr = AggregationBuilders.terms("groupby_attr").field("skuAttrValueList.valueId");
+        searchSourceBuilder.aggregation(groupby_attr);
 
         return searchSourceBuilder.toString();
 
