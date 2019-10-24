@@ -22,16 +22,17 @@ import java.util.List;
 public class GmallSearchServiceApplicationTests {
 
     @Reference
-    SkuService skuService;
+    SkuService skuService;// 查询mysql
+
 
     @Autowired
     JestClient jestClient;
 
-
-    public  void context() throws IOException {
+    @Test
+    public void contextLoads() throws IOException {
         put();
     }
-    @Test
+
     public void put() throws IOException {
 
         // 查询mysql数据
@@ -59,6 +60,14 @@ public class GmallSearchServiceApplicationTests {
             jestClient.execute(put);
         }
 
+    }
+    @Test
+   public void contextLoad2s() {
+        int i=1;
+        i+=1;
+        int o=1;
+        o=o+1;
+        System.out.println(i==o);
     }
     }
 

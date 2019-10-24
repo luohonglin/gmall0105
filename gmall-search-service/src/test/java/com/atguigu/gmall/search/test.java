@@ -26,7 +26,6 @@ public class test {
 //                .setTypes("article")  //设置type
                 .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)//设置查询类型 1.SearchType.DFS_QUERY_THEN_FETCH = 精确查询  2.SearchType.SCAN =扫描查询,无序
                 .setQuery(QueryBuilders.termQuery("skuName", "华为"))  //设置查询项以及对应的值
-                .setQuery(QueryBuilders.termQuery("skuDesc","小"))
                 //	        .setPostFilter(QueryBuilders.rangeQuery("age").from(12).to(18))     // 设置Filter过滤
                 .setFrom(0).setSize(20)//设置分页
                 .setExplain(true) //设置是否按查询匹配度排序
