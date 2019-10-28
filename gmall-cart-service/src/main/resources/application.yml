@@ -11,7 +11,7 @@ spring:
     application: cart-service
     registry:
       #      zookeeper\u6CE8\u518C\u4E2D\u5FC3\u5730\u5740
-      address: 192.168.125.131:2181
+      address: 106.13.34.207:2181
       #     zookeeper\u6CE8\u518C\u4E2D\u5FC3\u7684\u5730\u5740
       protocol: zookeeper
     #       dubbo\u7684\u901A\u8BAF\u534F\u8BAE\u7684\u540D\u79F0
@@ -21,7 +21,7 @@ spring:
     base-package: com.atguigu.gmall
   redis:
     port: 6379
-    host: 192.168.125.131
+    host: 106.13.34.207
     database: 0
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
@@ -29,4 +29,4 @@ mybatis:
     map-underscore-to-camel-case: true
 logging:
   level:
-    root: info
+    root: debug

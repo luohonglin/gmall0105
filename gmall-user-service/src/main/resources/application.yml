@@ -11,7 +11,7 @@ spring:
     application: user-service
     registry:
 #      zookeeper注册中心地址
-      address: 192.168.125.131:2181
+      address: 106.13.34.207:2181
 #     zookeeper注册中心的地址
       protocol: zookeeper
 #       dubbo的通讯协议的名称

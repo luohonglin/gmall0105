@@ -11,7 +11,7 @@ spring:
     application: search-web
     registry:
       #      zookeeper\u6CE8\u518C\u4E2D\u5FC3\u7684\u5730\u5740
-      address: 192.168.125.131:2181
+      address: 106.13.34.207:2181
       #     zookeeper\u7684\u901A\u8BAF\u534F\u8BAE\u7684\u540D\u79F0
       protocol: zookeeper
     #       dubbo\u901A\u8BAF\u534F\u8BAE\u7684\u540D\u79F0

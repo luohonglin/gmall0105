@@ -1,20 +1,18 @@
 package com.atguigu.gmall.manage.util;
 
-import org.csource.common.MyException;
 import org.csource.fastdfs.ClientGlobal;
 import org.csource.fastdfs.StorageClient;
 import org.csource.fastdfs.TrackerClient;
 import org.csource.fastdfs.TrackerServer;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.swing.*;
 import java.io.IOException;
 
 public class PmsUploadUtil {
 
     public static String uploadImage(MultipartFile multipartFile) {
 
-        String imgUrl =  "http://192.168.125.131";
+        String imgUrl =  "http://106.13.34.207";
 
         // 上传图片到服务器
         // 配置fdfs的全局链接地址
