@@ -6,23 +6,27 @@ spring:
     password: root
     url: jdbc:mysql://localhost:3306/gmall_stuby?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     driver-class-name: com.mysql.jdbc.Driver
-#  dubbo中的服务名称
+  #  dubbo\u4E2D\u7684\u670D\u52A1\u540D\u79F0
   dubbo:
     application: user-service
     registry:
-#      zookeeper注册中心地址
+      #      zookeeper\u6CE8\u518C\u4E2D\u5FC3\u5730\u5740
       address: 106.13.34.207:2181
-#     zookeeper注册中心的地址
+      #     zookeeper\u6CE8\u518C\u4E2D\u5FC3\u7684\u5730\u5740
       protocol: zookeeper
-#       dubbo的通讯协议的名称
+    #       dubbo\u7684\u901A\u8BAF\u534F\u8BAE\u7684\u540D\u79F0
     protocol:
       name: dubbo
-#       dubbo的服务的扫描路径
+    #       dubbo\u7684\u670D\u52A1\u7684\u626B\u63CF\u8DEF\u5F84
     base-package: com.atguigu.gmall
+  redis:
+    port: 6379
+    host: 106.13.34.207
+    database: 0
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
   configuration:
     map-underscore-to-camel-case: true
 logging:
   level:
-    root: debug
+    root: info

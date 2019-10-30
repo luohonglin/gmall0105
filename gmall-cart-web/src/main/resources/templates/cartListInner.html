@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -59,8 +59,7 @@
     </div>
     <div>
         <ol>
-            <li>总价:<span style="color:#e64346;font-weight:bold;font-size:16px;" class="fnt">￥0.00</span>  </li>
-
+            <li>总价:<span style="color:#e64346;font-weight:bold;font-size:16px;" class="fnt" th:text="${totalAmount}">￥0.00</span>  </li>
         </ol>
     </div>
     <div><button  onclick="toTrade()" type="button">去结算</button></div>

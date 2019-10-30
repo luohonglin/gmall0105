@@ -28,6 +28,10 @@ public class GmallSearchServiceApplicationTests {
     @Autowired
     JestClient jestClient;
 
+//    @Reference
+//    SkuService skuService;// 查询mysql
+
+
     @Test
     public void contextLoads() throws IOException {
         put();
@@ -61,6 +65,7 @@ public class GmallSearchServiceApplicationTests {
         }
 
     }
+
     @Test
    public void contextLoad2s() {
         int i=1;
